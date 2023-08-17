@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ChatLog Parser</title>
+    <link rel="Icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        let textFile = []
+
+        addEventListener('DOMContentLoaded', () => {
+            let timeoutInput = null
+            const inputSearch = document.getElementById('searchZolik')
+            inputSearch.addEventListener('input', event => {
+                if (timeoutInput !== null) clearTimeout(timeoutInput)
+                timeoutInput = setTimeout(() => {
+                    let me = textFile.filter(vvv => vvv.toLowerCase().includes(event.target.value.toLowerCase()))
+                    me.unshift('Количество строчек: ' + me.length)
+                    renderLines(me)
+                }, 1500)
+            })
+
+            const inputFile = document.getElementById('fileZolik')
+            inputFile.addEventListener('change', handleFileSelect)
+        })
+
+        function renderLines (lines) {
+            const text = document.getElementById('text')
+            text.replaceChildren()
+            for (const line of lines) {
+                const p = document.createElement('p')
+                p.textContent = line
+                text.appendChild(p)
+            }
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                // Получаем содержимое файла в кодировке windows1251
+                const fileContentWindows1251 = event.target.result;
+                
+                // Преобразуем содержимое файла из windows1251 в UTF-8
+                const textDecoder = new TextDecoder("windows-1251");
+                const fileContentUtf8 = textDecoder.decode(fileContentWindows1251);
+
+                // Разбираем содержимое файла и выводим его в HTML
+                const text = document.getElementById('text')
+                textFile = fileContentUtf8.split('\n')
+                renderLines(textFile)
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    
+
+    </script>
+</head>
+<body>
+
+    <div class="uploadFileButton">
+        <div class="form-group">
+            <input type="file" name="fileZolikName" id="fileZolik" class="input-file">
+            <label for="fileZolik" class="btn btn-tertiary js-labelFile">
+                <span>ЗАГРУЗИТЬ ФАЙЛ</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="searchZolik" required="">
+        <label for="input" class="label">ПОИСК</label>
+        <div class="underline"></div>
+    </div>
+
+    <div id="text"></div>  
+</body>
+</html>

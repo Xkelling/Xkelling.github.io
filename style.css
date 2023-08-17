@@ -1,0 +1,84 @@
+body {
+    background-color: #222222;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.input-container {
+    position: relative;
+    margin: 50px auto;
+    width: 200px;
+  }
+  
+  .input-container input[type="text"] {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+    color: white;
+  }
+  
+  .input-container .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .input-container input[type="text"]:focus ~ .label,
+  .input-container input[type="text"]:valid ~ .label {
+    top: -20px;
+    font-size: 16px;
+    color: rgb(143, 143, 143);
+  }
+  
+  .input-container .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: rgb(143, 143, 143);
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+  }
+  
+  .input-container input[type="text"]:focus ~ .underline,
+  .input-container input[type="text"]:valid ~ .underline {
+    transform: scaleX(1);
+  }
+  
+.uploadFileButton .btn-tertiary{
+    line-height:40px;
+    display:block;
+    margin: auto;
+    margin-top: 10px;
+    width: 300px;
+    height: 5%;
+    border-radius: 5px;
+    border-style: solid;
+    font-size: 18px;
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border-width: 2px;
+    transition: .2s ease-in;
+}
+.uploadFileButton .btn-tertiary:hover,.uploadFileButton .btn-tertiary:focus {
+    border-color: transparent;
+    background-color: white;
+    color: black;
+}
+
+.uploadFileButton .js-labelFile {
+    text-align: center;
+}
+
+.uploadFileButton .btn-tertiary:hover,.uploadFileButton .btn-tertiary:focus{color:rgb(0, 0, 0);border-color: transparent}
+.uploadFileButton .input-file{width:.1px;height:.1px;opacity:0;overflow:hidden;position:absolute;z-index:-1}
+.uploadFileButton .input-file + .js-labelFile{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 10px;cursor:pointer}
